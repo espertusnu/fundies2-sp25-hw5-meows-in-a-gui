@@ -27,7 +27,8 @@ public abstract class Dataset {
     }
 
     /**
-     * Adds each file in the directory specified to the dataset, in alphabetical order.
+     * Adds each file in the directory specified to the dataset, in alphabetical order by filename.
+     * Assumes the filename follows the convention specified.
      *
      * @param path the location of the directory containing the files
      */
@@ -36,7 +37,8 @@ public abstract class Dataset {
     }
 
     /**
-     * Adds each file in the directory specified to the dataset, in backwards alphabetical order.
+     * Adds each file in the directory specified to the dataset, in backwards alphabetical order by filename.
+     * Assumes the filename follows the convention specified.
      *
      * @param path the location of the directory containing the files
      */
@@ -46,8 +48,12 @@ public abstract class Dataset {
 
     /**
      * @return a randomly selected Row from the dataset
+     * @throws IllegalStateException if the dataset is empty
      */
-    public Row getRandomRow() {
+    public Row getRandomRow() throws IllegalStateException {
+        if (data.isEmpty()) {
+            throw new IllegalStateException();
+        }
         if (rand == null) {
             rand = new Random();
         }
@@ -88,6 +94,19 @@ public abstract class Dataset {
             } else {
                 return catID.compareTo(other.catID);
             }
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            if (other instanceof Row row) {
+                return audioFile.equals(row.audioFile);
+            }
+            return false;
+        }
+
+        @Override
+        public int hashCode() {
+            return audioFile.hashCode();
         }
 
         /**
