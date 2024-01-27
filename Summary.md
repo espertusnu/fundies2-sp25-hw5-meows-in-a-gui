@@ -10,7 +10,7 @@ _Please explain in a sentence or two._ [2 points]
 
 _Please explain in a sentence or two._ [2 points]
 
-### Generally, how do you choose the right type of list?
+### Why is Dataset an abstract class?
 
 _Please explain in a sentence or two._ [2 points]
 
