@@ -12,7 +12,7 @@ import javax.sound.sampled.*;
  */
 public abstract class Dataset {
     protected List<Row> data;
-    protected Random rand;
+    private Random rand;
 
     private void addEach(String path, boolean back) {
         File[] files = new File(path).listFiles();
