@@ -5,11 +5,13 @@ public class Main {
     public static final int TIMES = 100;
     public static final int RANDOM_MEOWS = 100;
 
+
     public static void main(String[] args) {
         String path = "data/dataset/dataset";
         timeAddEachToFront(path);
         timeAddEachToBack(path);
         timeAccessRandomElements(path);
+        timeSort(path);
     }
 
     public static void timeAddEachToFront(String path) {
@@ -47,6 +49,26 @@ public class Main {
         System.out.println();
     }
 
+    public static void timeSort(String path) {
+        LinkedListDataset ll = new LinkedListDataset();
+        ArrayListDataset al = new ArrayListDataset();
+        ll.addEachToBack(path);
+        al.addEachToBack(path);
+        System.out.println("Sort");
+        printAverageTime(
+                ll::sortDataset,
+                al::sortDataset
+        );
+        System.out.println();
+    }
+
+    /**
+     * Randomly selects rows from given dataset, and optionally plays them
+     *
+     * @param num      the number of random rows to select
+     * @param dataset  the dataset from which to select them
+     * @param playThem whether to play the selected audio clip meows
+     */
     public static void getRandomMeows(int num, Dataset dataset, boolean playThem) {
         for (int i = 0; i < num; i++) {
             Dataset.Row meow = dataset.getRandomRow();

@@ -37,13 +37,31 @@ public abstract class Dataset {
         return data.get(index);
     }
 
+    public void sortDataset() {
+        Collections.sort(data);
+    }
 
-    public static class Row {
+
+    public static class Row implements Comparable<Row> {
 
         protected File audioFile;
+        protected String catID;
+        protected int recordingSessionVocalCounter;
 
         protected Row(File file) {
             audioFile = file;
+            String[] splittedFileName = file.getName().split("_");
+            catID = splittedFileName[1];
+            String sessionAsString = splittedFileName[splittedFileName.length - 1].replace(".wav", "");
+            recordingSessionVocalCounter = Integer.parseInt(sessionAsString);
+        }
+
+        public int compareTo(Row other) {
+            if (catID.equals(other.catID)) {
+                return recordingSessionVocalCounter - other.recordingSessionVocalCounter;
+            } else {
+                return catID.compareTo(other.catID);
+            }
         }
 
         public void play() {
