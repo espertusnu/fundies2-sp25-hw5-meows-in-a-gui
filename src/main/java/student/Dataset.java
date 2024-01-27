@@ -2,15 +2,19 @@ package student;
 
 import java.io.File;
 import java.util.*;
-import java.io.*;
 import javax.sound.sampled.*;
 
 
+/**
+ * Keeps track of a dataset of Rows of audio files. Each audio file is named
+ * in the format "C_NNNNN_BB_SS_OOOOO_RXX.wav" where NNNNN is a unique cat ID,
+ * R is the recording session, and XX is the vocalization counter.
+ */
 public abstract class Dataset {
     protected List<Row> data;
     protected Random rand;
 
-    public void addEach(String path, boolean back) {
+    private void addEach(String path, boolean back) {
         File[] files = new File(path).listFiles();
         for (File file : files) {
             int index = 0;
@@ -21,14 +25,29 @@ public abstract class Dataset {
         }
     }
 
+    /**
+     * Adds each file in the directory specified to the dataset, in the order
+     * they appear.
+     *
+     * @param path the location of the directory containing the files
+     */
     public void addEachToFront(String path) {
         addEach(path, false);
     }
 
+    /**
+     * Adds each file in the directory specified to the dataset, in the opposite
+     * order as they appear.
+     *
+     * @param path the location of the directory containing the files
+     */
     public void addEachToBack(String path) {
         addEach(path, true);
     }
 
+    /**
+     * @return a randomly selected Row from the dataset
+     */
     public Row getRandomRow() {
         if (rand == null) {
             rand = new Random();
@@ -37,11 +56,19 @@ public abstract class Dataset {
         return data.get(index);
     }
 
+    /**
+     * Sort the Rows in the dataset. Rows are primarily ordered by cat ID. If two Rows
+     * have the same cat ID, they are ordered by recording session and vocalization counter.
+     */
     public void sortDataset() {
         Collections.sort(data);
     }
 
 
+    /**
+     * Represents a Row in the dataset of cat sounds. Keeps track of the audio file,
+     * the cat ID, and the recording session plus vocal counter.
+     */
     public static class Row implements Comparable<Row> {
 
         protected File audioFile;
@@ -64,6 +91,10 @@ public abstract class Dataset {
             }
         }
 
+        /**
+         * Plays the audio clip of the cat sound. If the sound cannot be played,
+         * prints the message saying it could not be played.
+         */
         public void play() {
             AudioInputStream stream;
             AudioFormat format;
