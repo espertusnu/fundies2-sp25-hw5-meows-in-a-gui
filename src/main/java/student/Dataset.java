@@ -16,6 +16,7 @@ public abstract class Dataset {
 
     private void addEach(String path, boolean back) {
         File[] files = new File(path).listFiles();
+        Arrays.sort(files);
         for (File file : files) {
             int index = 0;
             if (back) {
@@ -26,8 +27,7 @@ public abstract class Dataset {
     }
 
     /**
-     * Adds each file in the directory specified to the dataset, in the order
-     * they appear.
+     * Adds each file in the directory specified to the dataset, in alphabetical order.
      *
      * @param path the location of the directory containing the files
      */
@@ -36,8 +36,7 @@ public abstract class Dataset {
     }
 
     /**
-     * Adds each file in the directory specified to the dataset, in the opposite
-     * order as they appear.
+     * Adds each file in the directory specified to the dataset, in backwards alphabetical order.
      *
      * @param path the location of the directory containing the files
      */
