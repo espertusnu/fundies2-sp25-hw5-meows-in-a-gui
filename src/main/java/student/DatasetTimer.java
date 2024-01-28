@@ -2,17 +2,21 @@ package student;
 
 import java.io.File;
 
-public class DatasetTimer {
-    public static final String PATH = "src/main/resources/dataset";
+/**
+ * Creates LinkedListDatasets and ArrayListDatasets, and times their addToFront(), addToBack(),
+ * getRandomMeow(), and sortDataset() methods.
+ */
+public final class DatasetTimer {
+    private static final String PATH = "src/main/resources/dataset";
 
-    public static final int TIMES = 100;
-    public static final int RANDOM_MEOWS = 100;
-    private File[] files;
+    private static final int TIMES = 100;
+    private static final int RANDOM_MEOWS = 100;
+    private final File[] files;
 
-    private LinkedListDataset llDataset;
-    private ArrayListDataset alDataset;
+    private Dataset llDataset;
+    private Dataset alDataset;
 
-    public DatasetTimer(String path) {
+    private DatasetTimer(String path) {
         this.files = new File(path).listFiles();
     }
 
@@ -25,11 +29,17 @@ public class DatasetTimer {
         timer.timeSort();
     }
 
+    /**
+     * Initializes both Datasets to be the appropriate type.
+     */
     private void initializeDatasets() {
         llDataset = new LinkedListDataset();
         alDataset = new ArrayListDataset();
     }
 
+    /**
+     * If either Dataset is null, initializes both to contain cat files.
+     */
     private void loadDatasetsIfNull() {
         if (llDataset == null || alDataset == null) {
             initializeDatasets();
@@ -38,6 +48,14 @@ public class DatasetTimer {
         }
     }
 
+    /**
+     * Runs two functions and prints a message about their timing.
+     *
+     * @param initialize whether to initialize the Datasets
+     * @param title      the title of the function being run
+     * @param llRunnable the LinkedListDataset version of the function
+     * @param alRunnable the ArrayListDataset version of the function
+     */
     private void timeMethod(boolean initialize, String title, Runnable llRunnable, Runnable alRunnable) {
         if (initialize) {
             initializeDatasets();
@@ -51,7 +69,7 @@ public class DatasetTimer {
      * Times the addEachToFront method for LinkedListDataset and ArrayListDataset.
      * Prints the nanoseconds for each.
      */
-    public void timeAddEachToFront() {
+    private void timeAddEachToFront() {
         timeMethod(
                 true,
                 "Add each to front",
@@ -64,7 +82,7 @@ public class DatasetTimer {
      * Times the addEachToBack method for LinkedListDataset and ArrayListDataset.
      * Prints the nanoseconds for each.
      */
-    public void timeAddEachToBack() {
+    private void timeAddEachToBack() {
         timeMethod(
                 true,
                 "Add each to back",
@@ -77,7 +95,7 @@ public class DatasetTimer {
      * Times the getRandomMeow method for LinkedListDataset and ArrayListDataset.
      * Prints the nanoseconds for each.
      */
-    public void timeAccessRandomElements() {
+    private void timeAccessRandomElements() {
         loadDatasetsIfNull();
         timeMethod(
                 false,
@@ -91,7 +109,7 @@ public class DatasetTimer {
      * Times the sort method for LinkedListDataset and ArrayListDataset.
      * Prints the nanoseconds for each.
      */
-    public void timeSort() {
+    private void timeSort() {
         loadDatasetsIfNull();
         timeMethod(
                 false,
@@ -108,7 +126,7 @@ public class DatasetTimer {
      * @param dataset  the dataset from which to select them
      * @param playThem whether to play the selected audio clip meows
      */
-    public void getRandomMeows(int num, Dataset dataset, boolean playThem) {
+    private void getRandomMeows(int num, Dataset dataset, boolean playThem) {
         for (int i = 0; i < num; i++) {
             Dataset.Meow meow = dataset.getRandomMeow();
             if (playThem) {
@@ -123,7 +141,7 @@ public class DatasetTimer {
      * @param linkedListFunc a function that uses a LinkedListDataset
      * @param arrayListFunc  a function that uses an ArrayListDataset
      */
-    public void printAverageTime(Runnable linkedListFunc, Runnable arrayListFunc) {
+    private void printAverageTime(Runnable linkedListFunc, Runnable arrayListFunc) {
         long linkedListTime = averageTime(TIMES, linkedListFunc);
         System.out.printf("Nanoseconds for LinkedListDataset: %d\n", linkedListTime);
         long arrayListTime = averageTime(TIMES, arrayListFunc);
@@ -137,7 +155,7 @@ public class DatasetTimer {
      * @return the average number of nanoseconds it took to run the passed function,
      * after running it the passed number of times
      */
-    public long averageTime(int times, Runnable func) {
+    private long averageTime(int times, Runnable func) {
         long totalTime = 0;
         for (int i = 0; i < times; i++) {
             totalTime += timeMethod(func);
@@ -149,7 +167,7 @@ public class DatasetTimer {
      * @param func a function with no parameters and a void return
      * @return the number of nanoseconds it took to run the passed function
      */
-    public long timeMethod(Runnable func) {
+    private long timeMethod(Runnable func) {
         long before = System.nanoTime();
         func.run();
         long after = System.nanoTime();
