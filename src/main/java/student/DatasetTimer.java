@@ -100,7 +100,7 @@ public class DatasetTimer {
     }
 
     /**
-     * Randomly selects rows from given dataset, and optionally plays them
+     * Randomly selects rows from given dataset, and optionally plays them.
      *
      * @param num      the number of random rows to select
      * @param dataset  the dataset from which to select them
@@ -116,7 +116,7 @@ public class DatasetTimer {
     }
 
     /**
-     * Prints the average number of nanoseconds used to run each passed function
+     * Prints the average number of nanoseconds used to run each passed function.
      *
      * @param linkedListFunc a function that uses a LinkedListDataset
      * @param arrayListFunc  a function that uses an ArrayListDataset

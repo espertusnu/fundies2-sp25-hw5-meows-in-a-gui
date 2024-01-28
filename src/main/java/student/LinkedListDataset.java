@@ -3,12 +3,14 @@ package student;
 import java.util.LinkedList;
 
 /**
- * Keeps track of a dataset of Rows of audio files. Each audio file is named
- * in the format "C_NNNNN_BB_SS_OOOOO_RXX.wav" where NNNNN is a unique cat ID,
- * R is the recording session, and XX is the vocalization counter.
+ * Keeps track of a dataset of Rows of audio files using a {@link LinkedList}.
+ * The data format is described in {@link Dataset}.
  */
 public class LinkedListDataset extends Dataset {
 
+    /**
+     * Constructs an empty data set.
+     */
     public LinkedListDataset() {
         this.data = new LinkedList<>();
     }
