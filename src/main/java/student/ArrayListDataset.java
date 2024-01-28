@@ -3,11 +3,13 @@ package student;
 import java.util.ArrayList;
 
 /**
- * Keeps track of a dataset of Rows of audio files. Each audio file is named
- * in the format "C_NNNNN_BB_SS_OOOOO_RXX.wav" where NNNNN is a unique cat ID,
- * R is the recording session, and XX is the vocalization counter.
+ * Keeps track of a dataset of Rows of audio files using an {@link ArrayList}.
+ * The data format is described in {@link Dataset}.
  */
 public class ArrayListDataset extends Dataset {
+    /**
+     * Constructs an empty data set.
+     */
     public ArrayListDataset() {
         this.data = new ArrayList<>();
     }

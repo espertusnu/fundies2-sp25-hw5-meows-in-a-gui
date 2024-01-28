@@ -1,9 +1,9 @@
 package student;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import javax.sound.sampled.*;
-
 
 /**
  * Keeps track of a dataset of Rows of audio files. Each audio file is named
@@ -27,8 +27,8 @@ public abstract class Dataset {
     }
 
     /**
-     * Adds each file in the directory specified to the dataset, in alphabetical order by filename.
-     * Assumes the filename follows the convention specified.
+     * Adds each file in the specified directory to the dataset, in alphabetical order by filename.
+     * This assumes the filename follows the convention specified.
      *
      * @param path the location of the directory containing the files
      */
@@ -38,7 +38,7 @@ public abstract class Dataset {
 
     /**
      * Adds each file in the directory specified to the dataset, in backwards alphabetical order by filename.
-     * Assumes the filename follows the convention specified.
+     * This assumes the filename follows the convention specified.
      *
      * @param path the location of the directory containing the files
      */
@@ -47,12 +47,14 @@ public abstract class Dataset {
     }
 
     /**
+     * Gets a random Row from the data set.
+     *
      * @return a randomly selected Row from the dataset
      * @throws IllegalStateException if the dataset is empty
      */
     public Row getRandomRow() throws IllegalStateException {
         if (data.isEmpty()) {
-            throw new IllegalStateException();
+            throw new IllegalStateException("The dataset must not be empty.");
         }
         if (rand == null) {
             rand = new Random();
@@ -88,6 +90,7 @@ public abstract class Dataset {
             recordingSessionVocalCounter = Integer.parseInt(sessionAsString);
         }
 
+        @Override
         public int compareTo(Row other) {
             if (catID.equals(other.catID)) {
                 return recordingSessionVocalCounter - other.recordingSessionVocalCounter;
@@ -110,8 +113,8 @@ public abstract class Dataset {
         }
 
         /**
-         * Plays the audio clip of the cat sound. If the sound cannot be played,
-         * prints the message saying it could not be played.
+         * Plays the audio clip of the cat sound. If the sound cannot be played, it
+         * prints a message saying it could not be played.
          */
         public void play() {
             AudioInputStream stream;
@@ -126,7 +129,7 @@ public abstract class Dataset {
                 clip = (Clip) AudioSystem.getLine(info);
                 clip.open(stream);
                 clip.start();
-            } catch (Exception e) {
+            } catch (LineUnavailableException | IOException e) {
                 System.out.printf("Could not play %s\n", audioFile);
             }
         }
