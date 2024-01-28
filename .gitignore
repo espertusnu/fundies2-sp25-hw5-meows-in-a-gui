@@ -10,3 +10,5 @@ target/
 waltz*.wav
 *.iml
 *.zip
+docs/
+.DS_Store
