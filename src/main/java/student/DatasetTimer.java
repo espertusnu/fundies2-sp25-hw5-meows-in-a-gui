@@ -1,17 +1,19 @@
 package student;
 
+import java.io.File;
+
 public class DatasetTimer {
-    public static final String PATH = "data/dataset/dataset";
+    public static final String PATH = "src/main/resources/dataset";
 
     public static final int TIMES = 100;
     public static final int RANDOM_MEOWS = 100;
-    private String path;
+    private File[] files;
 
     private LinkedListDataset llDataset;
     private ArrayListDataset alDataset;
 
     public DatasetTimer(String path) {
-        this.path = path;
+        this.files = new File(path).listFiles();
     }
 
 
@@ -31,8 +33,8 @@ public class DatasetTimer {
     private void loadDatasetsIfNull() {
         if (llDataset == null || alDataset == null) {
             initializeDatasets();
-            llDataset.addEachToBack(path);
-            alDataset.addEachToBack(path);
+            llDataset.addEachToBack(files);
+            alDataset.addEachToBack(files);
         }
     }
 
@@ -53,8 +55,8 @@ public class DatasetTimer {
         timeMethod(
                 true,
                 "Add each to front",
-                () -> llDataset.addEachToFront(path),
-                () -> alDataset.addEachToFront(path)
+                () -> llDataset.addEachToFront(files),
+                () -> alDataset.addEachToFront(files)
         );
     }
 
@@ -66,13 +68,13 @@ public class DatasetTimer {
         timeMethod(
                 true,
                 "Add each to back",
-                () -> llDataset.addEachToBack(path),
-                () -> alDataset.addEachToBack(path)
+                () -> llDataset.addEachToBack(files),
+                () -> alDataset.addEachToBack(files)
         );
     }
 
     /**
-     * Times the getRandomRow method for LinkedListDataset and ArrayListDataset.
+     * Times the getRandomMeow method for LinkedListDataset and ArrayListDataset.
      * Prints the nanoseconds for each.
      */
     public void timeAccessRandomElements() {
@@ -100,15 +102,15 @@ public class DatasetTimer {
     }
 
     /**
-     * Randomly selects rows from given dataset, and optionally plays them.
+     * Randomly selects meows from given dataset, and optionally plays them.
      *
-     * @param num      the number of random rows to select
+     * @param num      the number of random meows to select
      * @param dataset  the dataset from which to select them
      * @param playThem whether to play the selected audio clip meows
      */
     public void getRandomMeows(int num, Dataset dataset, boolean playThem) {
         for (int i = 0; i < num; i++) {
-            Dataset.Row meow = dataset.getRandomRow();
+            Dataset.Meow meow = dataset.getRandomMeow();
             if (playThem) {
                 meow.play();
             }

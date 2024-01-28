@@ -6,57 +6,57 @@ import java.util.*;
 import javax.sound.sampled.*;
 
 /**
- * Keeps track of a dataset of Rows of audio files. Each audio file is named
+ * Keeps track of a dataset of Meows of audio files. Each audio file is named
  * in the format "C_NNNNN_BB_SS_OOOOO_RXX.wav" where NNNNN is a unique cat ID,
  * R is the recording session, and XX is the vocalization counter.
  */
 public abstract class Dataset {
-    protected List<Row> data;
+    protected List<Meow> data;
     private Random rand;
 
-    private void addEach(String path, boolean back) {
-        File[] files = new File(path).listFiles();
-        Arrays.sort(files);
+    private void addEach(File[] files, boolean back) {
         for (File file : files) {
             int index = 0;
             if (back) {
                 index = data.size();
             }
-            data.add(index, (new Row(file)));
+            data.add(index, (new Meow(file)));
         }
     }
 
     /**
-     * Adds each file in the specified directory to the front of the dataset, in alphabetical order by filename.
-     * E.g., if the directory contains file1 and file2, and file1 is before file2 alphabetically, then
-     * first file1 will be added to the front of the data, and then file2 will be added in front of that.
-     * This assumes the filename follows the convention specified.
+     * Adds each file to the front of the dataset.
+     * E.g., if the array contains [file1, file2], then
+     * first file1 will be added to the front of the data, and
+     * then file2 will be added in front of that.
+     * This assumes the filenames follows the convention specified.
      *
-     * @param path the location of the directory containing the files
+     * @param files the array of files to be added to the dataset
      */
-    public void addEachToFront(String path) {
-        addEach(path, false);
+    public void addEachToFront(File[] files) {
+        addEach(files, false);
     }
 
     /**
-     * Adds each file in the directory specified to the end of the dataset, in alphabetical order by filename.
-     * E.g., if the directory contains file1 and file2, and file1 is before file2 alphabetically, then
-     * first file1 will be added to the back of the data, and then file2 will be added after that.
-     * This assumes the filename follows the convention specified.
+     * Adds each file to the end of the dataset.
+     * E.g., if the array contains [file1, file2], then
+     * first file1 will be added to the back of the data, and
+     * then file2 will be added after that.
+     * This assumes the filenames follows the convention specified.
      *
-     * @param path the location of the directory containing the files
+     * @param files the array of files to be added to the dataset
      */
-    public void addEachToBack(String path) {
-        addEach(path, true);
+    public void addEachToBack(File[] files) {
+        addEach(files, true);
     }
 
     /**
-     * Gets a random Row from the data set.
+     * Gets a random Meow from the data set.
      *
-     * @return a randomly selected Row from the dataset
+     * @return a randomly selected Meow from the dataset
      * @throws IllegalStateException if the dataset is empty
      */
-    public Row getRandomRow() throws IllegalStateException {
+    public Meow getRandomMeow() throws IllegalStateException {
         if (data.isEmpty()) {
             throw new IllegalStateException("The dataset must not be empty.");
         }
@@ -68,7 +68,7 @@ public abstract class Dataset {
     }
 
     /**
-     * Sort the Rows in the dataset. Rows are primarily ordered by cat ID. If two Rows
+     * Sort the Meows in the dataset. Meows are primarily ordered by cat ID. If two Meows
      * have the same cat ID, they are ordered by recording session and vocalization counter.
      */
     public void sortDataset() {
@@ -77,16 +77,16 @@ public abstract class Dataset {
 
 
     /**
-     * Represents a Row in the dataset of cat sounds. Keeps track of the audio file,
+     * Represents a Meow in the dataset of cat sounds. Keeps track of the audio file,
      * the cat ID, and the recording session plus vocal counter.
      */
-    public static class Row implements Comparable<Row> {
+    public static class Meow implements Comparable<Meow> {
 
         protected File audioFile;
         protected String catID;
         protected int recordingSessionVocalCounter;
 
-        protected Row(File file) {
+        protected Meow(File file) {
             audioFile = file;
             String[] splittedFileName = file.getName().split("_");
             catID = splittedFileName[1];
@@ -95,7 +95,7 @@ public abstract class Dataset {
         }
 
         @Override
-        public int compareTo(Row other) {
+        public int compareTo(Meow other) {
             if (catID.equals(other.catID)) {
                 return recordingSessionVocalCounter - other.recordingSessionVocalCounter;
             } else {
@@ -105,8 +105,8 @@ public abstract class Dataset {
 
         @Override
         public boolean equals(Object other) {
-            if (other instanceof Row row) {
-                return audioFile.equals(row.audioFile);
+            if (other instanceof Meow meow) {
+                return audioFile.equals(meow.audioFile);
             }
             return false;
         }

@@ -9,52 +9,61 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DatasetTest {
     Dataset dataset;
-    String testFilePath = "data/test_files";
-    String emptyDir = "data/empty";
+    String testFilePath = "src/main/resources/test_files";
     String filenameOne = "/B_ANI01_MC_FN_SIM01_101.wav";
     String filenameTwo = "/B_ANI01_MC_FN_SIM01_102.wav";
+    File[] files;
 
     @BeforeEach
     void setup() {
         dataset = new ArrayListDataset();
+        files = new File(testFilePath).listFiles();
+        Arrays.sort(files);
     }
 
     @Test
     void addEachToFrontOrder() {
-        dataset.addEachToFront(testFilePath);
-        List<Dataset.Row> expected = new ArrayList<>();
-        expected.add(new Dataset.Row(new File(testFilePath + filenameTwo)));
-        expected.add(new Dataset.Row(new File(testFilePath + filenameOne)));
+        dataset.addEachToFront(files);
+        List<Dataset.Meow> expected = new ArrayList<>();
+        expected.add(new Dataset.Meow(new File(testFilePath + filenameTwo)));
+        expected.add(new Dataset.Meow(new File(testFilePath + filenameOne)));
         assertEquals(expected, dataset.data);
     }
 
     @Test
     void addEachToFrontOnNonEmptyDataset() {
         dataset.data = new ArrayList<>();
-        dataset.data.add(new Dataset.Row(new File(testFilePath + filenameOne)));
-        dataset.data.add(new Dataset.Row(new File(testFilePath + filenameTwo)));
-        dataset.addEachToFront(testFilePath);
-        List<Dataset.Row> expected = List.of(
-                new Dataset.Row(new File(testFilePath + filenameTwo)),
-                new Dataset.Row(new File(testFilePath + filenameOne)),
-                new Dataset.Row(new File(testFilePath + filenameOne)),
-                new Dataset.Row(new File(testFilePath + filenameTwo))
+        dataset.data.add(new Dataset.Meow(new File(testFilePath + filenameOne)));
+        dataset.data.add(new Dataset.Meow(new File(testFilePath + filenameTwo)));
+        dataset.addEachToFront(files);
+        List<Dataset.Meow> expected = List.of(
+                new Dataset.Meow(new File(testFilePath + filenameTwo)),
+                new Dataset.Meow(new File(testFilePath + filenameOne)),
+                new Dataset.Meow(new File(testFilePath + filenameOne)),
+                new Dataset.Meow(new File(testFilePath + filenameTwo))
         );
         assertEquals(expected, dataset.data);
     }
 
     @Test
     void addEachToFrontEmptyDirectory() {
-        dataset.addEachToFront(emptyDir);
-        assertEquals(new ArrayList<Dataset.Row>(), dataset.data);
+        dataset.addEachToFront(new File[0]);
+        assertEquals(new ArrayList<Dataset.Meow>(), dataset.data);
+    }
+
+    @Test
+    void addEachToFrontDoesNotChangeFileArray() {
+        File[] filesCopy = Arrays.copyOf(files, files.length);
+        dataset.addEachToFront(files);
+        assertArrayEquals(filesCopy, files);
     }
 
     @Test
     void addEachToBackOrder() {
-        dataset.addEachToBack(testFilePath);
-        List<Dataset.Row> expected = List.of(
-                new Dataset.Row(new File(testFilePath + filenameOne)),
-                new Dataset.Row(new File(testFilePath + filenameTwo))
+        dataset.addEachToBack(files);
+        List<Dataset.Meow> expected = List.of(
+                new Dataset.Meow(new File(testFilePath + filenameOne)),
+                new Dataset.Meow(new File(testFilePath + filenameTwo))
         );
         assertEquals(expected, dataset.data);
     }
@@ -62,30 +71,30 @@ public class DatasetTest {
     @Test
     void addEachToBackOnNonEmptyDataset() {
         dataset.data = new ArrayList<>();
-        dataset.data.add(new Dataset.Row(new File(testFilePath + filenameOne)));
-        dataset.data.add(new Dataset.Row(new File(testFilePath + filenameTwo)));
-        dataset.addEachToBack(testFilePath);
-        List<Dataset.Row> expected = List.of(
-                new Dataset.Row(new File(testFilePath + filenameOne)),
-                new Dataset.Row(new File(testFilePath + filenameTwo)),
-                new Dataset.Row(new File(testFilePath + filenameOne)),
-                new Dataset.Row(new File(testFilePath + filenameTwo))
+        dataset.data.add(new Dataset.Meow(new File(testFilePath + filenameOne)));
+        dataset.data.add(new Dataset.Meow(new File(testFilePath + filenameTwo)));
+        dataset.addEachToBack(files);
+        List<Dataset.Meow> expected = List.of(
+                new Dataset.Meow(new File(testFilePath + filenameOne)),
+                new Dataset.Meow(new File(testFilePath + filenameTwo)),
+                new Dataset.Meow(new File(testFilePath + filenameOne)),
+                new Dataset.Meow(new File(testFilePath + filenameTwo))
         );
         assertEquals(expected, dataset.data);
     }
 
     @Test
     void addEachToBackEmptyDirectory() {
-        dataset.addEachToBack(emptyDir);
-        assertEquals(new ArrayList<Dataset.Row>(), dataset.data);
+        dataset.addEachToBack(new File[0]);
+        assertEquals(new ArrayList<Dataset.Meow>(), dataset.data);
     }
 
     @Test
-    void getRandomRowWorks() {
-        dataset.addEachToFront(testFilePath);
+    void getRandomMeowWorks() {
+        dataset.addEachToFront(files);
         try {
             for (int i = 0; i < 50; i++) {
-                Dataset.Row row = dataset.getRandomRow();
+                Dataset.Meow meow = dataset.getRandomMeow();
             }
         } catch (Exception e) {
             fail();
@@ -93,23 +102,23 @@ public class DatasetTest {
     }
 
     @Test
-    void getRandomRowEmptyDatasetException() {
+    void getRandomMeowEmptyDatasetException() {
         assertThrows(
                 IllegalStateException.class,
-                () -> dataset.getRandomRow()
+                () -> dataset.getRandomMeow()
         );
     }
 
     @Test
     void sortDatasetWorks() {
-        dataset.addEachToBack(testFilePath);
-        dataset.addEachToFront(testFilePath);
+        dataset.addEachToBack(files);
+        dataset.addEachToFront(files);
         dataset.sortDataset();
-        List<Dataset.Row> expected = List.of(
-                new Dataset.Row(new File(testFilePath + filenameOne)),
-                new Dataset.Row(new File(testFilePath + filenameOne)),
-                new Dataset.Row(new File(testFilePath + filenameTwo)),
-                new Dataset.Row(new File(testFilePath + filenameTwo))
+        List<Dataset.Meow> expected = List.of(
+                new Dataset.Meow(new File(testFilePath + filenameOne)),
+                new Dataset.Meow(new File(testFilePath + filenameOne)),
+                new Dataset.Meow(new File(testFilePath + filenameTwo)),
+                new Dataset.Meow(new File(testFilePath + filenameTwo))
         );
         assertEquals(expected, dataset.data);
     }
@@ -124,28 +133,28 @@ public class DatasetTest {
     }
 
     @Test
-    void rowCompareToDifferentCatID() {
-        Dataset.Row row1 = new Dataset.Row(new File(testFilePath + filenameOne));
-        Dataset.Row row2 = new Dataset.Row(new File(testFilePath + filenameOne));
-        row1.catID = "Z" + row1.catID;
-        assertTrue(row1.compareTo(row2) > 0);
-        assertTrue(row2.compareTo(row1) < 0);
+    void compareToDifferentCatID() {
+        Dataset.Meow meow1 = new Dataset.Meow(new File(testFilePath + filenameOne));
+        Dataset.Meow meow2 = new Dataset.Meow(new File(testFilePath + filenameOne));
+        meow1.catID = "Z" + meow1.catID;
+        assertTrue(meow1.compareTo(meow2) > 0);
+        assertTrue(meow2.compareTo(meow1) < 0);
     }
 
     @Test
-    void rowCompareToSameCatIDDifferentRecordVocal() {
-        Dataset.Row row1 = new Dataset.Row(new File(testFilePath + filenameOne));
-        Dataset.Row row2 = new Dataset.Row(new File(testFilePath + filenameTwo));
-        assertTrue(row1.compareTo(row2) < 0);
-        assertTrue(row2.compareTo(row1) > 0);
+    void compareToSameCatIDDifferentRecordVocal() {
+        Dataset.Meow meow1 = new Dataset.Meow(new File(testFilePath + filenameOne));
+        Dataset.Meow meow2 = new Dataset.Meow(new File(testFilePath + filenameTwo));
+        assertTrue(meow1.compareTo(meow2) < 0);
+        assertTrue(meow2.compareTo(meow1) > 0);
     }
 
     @Test
-    void rowCompareToSameCatIDRecordVocalDifferentFile() {
-        Dataset.Row row1 = new Dataset.Row(new File(testFilePath + filenameOne));
-        Dataset.Row row2 = new Dataset.Row(new File(testFilePath + filenameOne));
-        row2.recordingSessionVocalCounter = 101;
-        assertEquals(0, row1.compareTo(row2));
-        assertEquals(0, row2.compareTo(row1));
+    void compareToSameCatIDRecordVocalDifferentFile() {
+        Dataset.Meow meow1 = new Dataset.Meow(new File(testFilePath + filenameOne));
+        Dataset.Meow meow2 = new Dataset.Meow(new File(testFilePath + filenameOne));
+        meow2.recordingSessionVocalCounter = 101;
+        assertEquals(0, meow1.compareTo(meow2));
+        assertEquals(0, meow2.compareTo(meow1));
     }
 }
