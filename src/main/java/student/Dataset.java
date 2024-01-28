@@ -129,7 +129,7 @@ public abstract class Dataset {
                 clip = (Clip) AudioSystem.getLine(info);
                 clip.open(stream);
                 clip.start();
-            } catch (LineUnavailableException | IOException e) {
+            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
                 System.out.printf("Could not play %s\n", audioFile);
             }
         }
