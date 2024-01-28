@@ -27,7 +27,9 @@ public abstract class Dataset {
     }
 
     /**
-     * Adds each file in the specified directory to the dataset, in alphabetical order by filename.
+     * Adds each file in the specified directory to the front of the dataset, in alphabetical order by filename.
+     * E.g., if the directory contains file1 and file2, and file1 is before file2 alphabetically, then
+     * first file1 will be added to the front of the data, and then file2 will be added in front of that.
      * This assumes the filename follows the convention specified.
      *
      * @param path the location of the directory containing the files
@@ -37,7 +39,9 @@ public abstract class Dataset {
     }
 
     /**
-     * Adds each file in the directory specified to the dataset, in backwards alphabetical order by filename.
+     * Adds each file in the directory specified to the end of the dataset, in alphabetical order by filename.
+     * E.g., if the directory contains file1 and file2, and file1 is before file2 alphabetically, then
+     * first file1 will be added to the back of the data, and then file2 will be added after that.
      * This assumes the filename follows the convention specified.
      *
      * @param path the location of the directory containing the files
