@@ -28,9 +28,10 @@ public class Meow implements Playable {
                         }
                     }
             );
-    protected File audioFile;
-    public String catID;
-    public int recordingSessionVocalCounter;
+    
+    private File audioFile;
+    private String catID;
+    private int recordingSessionVocalCounter;
 
     protected Meow(File file) {
         audioFile = file;
