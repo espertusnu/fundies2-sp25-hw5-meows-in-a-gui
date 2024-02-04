@@ -4,17 +4,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class Display<T extends Playable> extends JFrame {
+    private static final int WIDTH = 400;
+    private static final int HEIGHT = 400;
+
     private List<T> playables;
     private List<NamedComparator<T>> comparators;
     private DefaultListModel<Playable> listModel;
     private JList<Playable> jList;
 
     public Display(List<T> playables, List<NamedComparator<T>> comparators) {
-        this.playables = playables;
+        this.playables = new ArrayList<>(playables); // ensure mutability
         this.comparators = comparators;
         this.listModel = new DefaultListModel<>();
         this.jList = new JList<>(listModel);
@@ -23,9 +27,9 @@ public class Display<T extends Playable> extends JFrame {
     }
 
     private void initializeGUI() {
-        setTitle("Homework 5 GUI");
+        setTitle("Fundies 2 Homework 5");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(800, 600);
+        setSize(WIDTH, HEIGHT);
 
         updateJList();
         JPanel buttonPanel = new JPanel();
@@ -35,7 +39,7 @@ public class Display<T extends Playable> extends JFrame {
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Collections.sort(playables, namedComparator.getComparator());
+                    playables.sort(namedComparator.getComparator());
                     updateJList();
                 }
             });

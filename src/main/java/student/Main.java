@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static List<GuiLauncher<?>> launchers = List.of(new MeowGuiLauncher());
+    private static List<GuiLauncher<?>> launchers = List.of(new MeowGuiLauncher(), new GifGuiLauncher());
 
     private static GuiLauncher<?> getUserChoice() {
         Scanner scanner = new Scanner(System.in);

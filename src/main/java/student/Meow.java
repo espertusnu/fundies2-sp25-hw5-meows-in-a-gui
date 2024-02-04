@@ -4,13 +4,14 @@ import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * Represents a Meow in the dataset of cat sounds. Keeps track of the audio file,
  * the cat ID, and the recording session plus vocal counter.
  */
 public class Meow implements Playable {
-    public static final NamedComparator<Meow> INCREASING_CAT_ID_COMPARATOR =
+    private static final NamedComparator<Meow> INCREASING_CAT_ID_COMPARATOR =
             new NamedComparator<Meow>("sort by increasing cat ID",
                     new Comparator<Meow>() {
                         @Override
@@ -19,7 +20,7 @@ public class Meow implements Playable {
                         }
                     }
             );
-    public static final NamedComparator<Meow> INCREASING_RECORDING_ID_COMPARATOR =
+    private static final NamedComparator<Meow> INCREASING_RECORDING_ID_COMPARATOR =
             new NamedComparator<Meow>("sort by increasing recording ID",
                     new Comparator<Meow>() {
                         @Override
@@ -28,6 +29,10 @@ public class Meow implements Playable {
                         }
                     }
             );
+    static final List<NamedComparator<Meow>> COMPARATORS = List.of(
+            INCREASING_CAT_ID_COMPARATOR,
+            INCREASING_RECORDING_ID_COMPARATOR
+    );
 
     private final File audioFile;
     private final String catID;

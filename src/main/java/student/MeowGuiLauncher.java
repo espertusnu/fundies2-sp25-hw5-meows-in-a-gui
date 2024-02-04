@@ -9,7 +9,7 @@ public class MeowGuiLauncher implements GuiLauncher<Meow> {
     private static final String TEST_FILES_PATH = "src/main/resources/test_files";
     @Override
     public String getName() {
-        return "Meow";
+        return "Meow Collection";
     }
 
     private List<Meow> loadData(String path) {
@@ -25,8 +25,7 @@ public class MeowGuiLauncher implements GuiLauncher<Meow> {
 
     @Override
     public void launchGui() {
-        Display<Meow> display = new Display<>(
-                loadData(TEST_FILES_PATH), List.of(Meow.INCREASING_CAT_ID_COMPARATOR, Meow.INCREASING_RECORDING_ID_COMPARATOR));
+        Display<Meow> display = new Display<>(loadData(TEST_FILES_PATH), Meow.COMPARATORS);
         // TODO: Move this code into GuiLauncher, which should be made into an abstract class.
         SwingUtilities.invokeLater(new Runnable() {
             @Override
