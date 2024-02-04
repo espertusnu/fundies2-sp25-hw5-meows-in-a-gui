@@ -8,7 +8,7 @@ import java.io.IOException;
  * Represents a Meow in the dataset of cat sounds. Keeps track of the audio file,
  * the cat ID, and the recording session plus vocal counter.
  */
-public class Meow implements Comparable<Meow> {
+public class Meow implements Playable {
 
     protected File audioFile;
     public String catID;
@@ -20,15 +20,6 @@ public class Meow implements Comparable<Meow> {
         catID = splittedFileName[1];
         String sessionAsString = splittedFileName[splittedFileName.length - 1].replace(".wav", "");
         recordingSessionVocalCounter = Integer.parseInt(sessionAsString);
-    }
-
-    @Override
-    public int compareTo(Meow other) {
-        if (catID.equals(other.catID)) {
-            return recordingSessionVocalCounter - other.recordingSessionVocalCounter;
-        } else {
-            return catID.compareTo(other.catID);
-        }
     }
 
     @Override

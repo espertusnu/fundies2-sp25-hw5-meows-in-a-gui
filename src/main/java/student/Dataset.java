@@ -64,14 +64,4 @@ public abstract class Dataset {
         int index = rand.nextInt(data.size());
         return data.get(index);
     }
-
-    /**
-     * Sort the Meows in the dataset. Meows are primarily ordered by cat ID. If two Meows
-     * have the same cat ID, they are ordered by recording session and vocalization counter.
-     */
-    public void sortDataset() {
-        Collections.sort(data);
-    }
-
-
 }

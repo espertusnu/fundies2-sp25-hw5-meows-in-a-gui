@@ -5,62 +5,50 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
-public class MeowGUI extends JFrame {
-    private List<Meow> meowList;
-    private DefaultListModel<Meow> listModel;
-    private JList<Meow> meowJList;
+public class MeowGUI<T extends Playable> extends JFrame {
+    private SortableList<T> sortableList;
+    private List<T> playableList;
+    private DefaultListModel<Playable> listModel;
+    private JList<Playable> jList;
 
-    public MeowGUI(List<Meow> meowList) {
-        this.meowList = meowList;
+    public MeowGUI(SortableList<T> sortableList) {
+        this.sortableList = sortableList;
+        this.playableList = sortableList.getData();
         this.listModel = new DefaultListModel<>();
-        this.meowJList = new JList<>(listModel);
+        this.jList = new JList<>(listModel);
 
         initializeGUI();
     }
 
-    private void initializeGUI() {
-        setTitle("Meow GUI");
+    private <T extends Playable> void initializeGUI() {
+        setTitle("Homework 5 GUI");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 300);
 
         updateJList();
+        JPanel buttonPanel = new JPanel();
+        List<NamedComparator<T>> comparators = sortableList.getComparators();
 
-        JButton sortCatIdButton = new JButton("Sort by catId");
-        sortCatIdButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sortMeowList(new Comparator<Meow>() {
-                    @Override
-                    public int compare(Meow o1, Meow o2) {
-                        return o1.catID.compareTo(o2.catID);
-                    }
-                });
-            }
-        });
-
-        JButton sortCounterButton = new JButton("Sort by counter");
-        sortCounterButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                sortMeowList(new Comparator<Meow>() {
-                    @Override
-                    public int compare(Meow o1, Meow o2) {
-                        return Integer.compare(o1.recordingSessionVocalCounter, o2.recordingSessionVocalCounter);
-                    }
-                });
-            }
-        });
+        for (NamedComparator<T> namedComparator : comparators) {
+            JButton button = new JButton(namedComparator.getName());
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Collections.sort(sortableList.getData(), namedComparator.getComparator());
+                    updateJList();
+                }
+            });
+            buttonPanel.add(button);
+        }
 
         JButton playButton = new JButton("Play");
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Meow selectedMeow = meowJList.getSelectedValue();
+                Meow selectedMeow = jList.getSelectedValue();
                 if (selectedMeow != null) {
                     selectedMeow.play();
                 } else {
@@ -69,26 +57,18 @@ public class MeowGUI extends JFrame {
             }
         });
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(sortCatIdButton);
-        buttonPanel.add(sortCounterButton);
         buttonPanel.add(playButton);
 
         getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(new JScrollPane(meowJList), BorderLayout.CENTER);
+        getContentPane().add(new JScrollPane(jList), BorderLayout.CENTER);
         getContentPane().add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private void updateJList() {
         listModel.clear();
-        for (Meow meow : meowList) {
-            listModel.addElement(meow);
+        for (Playable playable : playableList) {
+            listModel.addElement(playable);
         }
-    }
-
-    private void sortMeowList(Comparator<Meow> comparator) {
-        Collections.sort(meowList, comparator);
-        updateJList();
     }
 
     public static void main(String[] args) {
