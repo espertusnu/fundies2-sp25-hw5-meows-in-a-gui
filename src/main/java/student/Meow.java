@@ -1,5 +1,7 @@
 package student;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
@@ -10,7 +12,8 @@ import java.util.List;
  * Represents a cat vocalization.
  */
 public class Meow implements Playable {
-    private static final NamedComparator<Meow> INCREASING_CAT_ID_COMPARATOR =
+    @VisibleForTesting
+    static final NamedComparator<Meow> INCREASING_CAT_ID_NCOMPARATOR =
             new NamedComparator<Meow>("sort by increasing cat ID",
                     new Comparator<Meow>() {
                         @Override
@@ -19,7 +22,8 @@ public class Meow implements Playable {
                         }
                     }
             );
-    private static final NamedComparator<Meow> INCREASING_RECORDING_ID_COMPARATOR =
+    @VisibleForTesting
+    static final NamedComparator<Meow> INCREASING_RECORDING_ID_NCOMPARATOR =
             new NamedComparator<Meow>("sort by increasing recording ID",
                     new Comparator<Meow>() {
                         @Override
@@ -28,9 +32,10 @@ public class Meow implements Playable {
                         }
                     }
             );
+    @VisibleForTesting
     static final List<NamedComparator<Meow>> COMPARATORS = List.of(
-            INCREASING_CAT_ID_COMPARATOR,
-            INCREASING_RECORDING_ID_COMPARATOR
+            INCREASING_CAT_ID_NCOMPARATOR,
+            INCREASING_RECORDING_ID_NCOMPARATOR
     );
 
     private final File audioFile;
