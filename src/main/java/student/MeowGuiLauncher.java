@@ -5,8 +5,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A launcher enabling sorting and selecting recorded cat vocalizations.
+ */
 public class MeowGuiLauncher implements GuiLauncher<Meow> {
     private static final String TEST_FILES_PATH = "src/main/resources/test_files";
+
+    /**
+     * Constructs the launcher.
+     */
+    public MeowGuiLauncher() {}
+
     @Override
     public String getName() {
         return "Meow Collection";

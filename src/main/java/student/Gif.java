@@ -8,6 +8,10 @@ import java.util.Comparator;
 import java.util.List;
 
 // TODO: Students will have to write this class.
+
+/**
+ * An animated gif.
+ */
 public class Gif implements Playable {
     private static final NamedComparator<Gif> INCREASING_NAME_COMPARATOR = new NamedComparator<Gif>(
             "sort alphabetically",
@@ -36,12 +40,19 @@ public class Gif implements Playable {
 
     static final List<NamedComparator<Gif>> COMPARATORS = List.of(
             INCREASING_NAME_COMPARATOR,
+            DECREASING_NAME_COMPARATOR,
             INCREASING_NAME_LENGTH_COMPARATOR
     );
 
     private final String name;
     private final String urlString;
 
+    /**
+     * Constructs an animated gif.
+     *
+     * @param name      the name to be displayed
+     * @param urlString the URL of the gif
+     */
     public Gif(String name, String urlString) {
         this.name = name;
         this.urlString = urlString;
@@ -54,24 +65,14 @@ public class Gif implements Playable {
 
     @Override
     public void play() {
-        JFrame frame = new JFrame(name);
         try {
+            JFrame frame = new JFrame(name);
             ImageIcon icon = new ImageIcon(new URL(urlString));
             frame.add(new JLabel(icon));
             frame.setSize(icon.getIconWidth(), icon.getIconHeight());
+            frame.setVisible(true);
         } catch (MalformedURLException e) {
-            JLabel label = new JLabel(name);
-            label.setPreferredSize(new Dimension(200, 100));
-            frame.getContentPane().add(label);
-            frame.setSize(label.getPreferredSize());
+            System.err.println("Unable to display " + name);
         }
-        frame.setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        Gif gif = new Gif(
-                "No way cat",
-                "https://64.media.tumblr.com/tumblr_lt7bswjhFd1r4ghkoo1_250.gifv");
-        gif.play();
     }
 }

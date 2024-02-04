@@ -5,18 +5,29 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
+/**
+ * A graphical user interface for sorting and selecting playable items.
+ *
+ * @param <T> the type of the items
+ */
 public class Display<T extends Playable> extends JFrame {
-    private static final int WIDTH = 400;
+    private static final int WIDTH = 600;
     private static final int HEIGHT = 400;
 
-    private List<T> playables;
-    private List<NamedComparator<T>> comparators;
-    private DefaultListModel<Playable> listModel;
-    private JList<Playable> jList;
+    private final List<T> playables;
+    private final List<NamedComparator<T>> comparators;
+    private final DefaultListModel<Playable> listModel;
+    private final JList<Playable> jList;
 
+    /**
+     * Constructs and launches a GUI that allows the provided data to be
+     * reordered and played.
+     *
+     * @param playables the data items
+     * @param comparators the comparators used to sort them
+     */
     public Display(List<T> playables, List<NamedComparator<T>> comparators) {
         this.playables = new ArrayList<>(playables); // ensure mutability
         this.comparators = comparators;

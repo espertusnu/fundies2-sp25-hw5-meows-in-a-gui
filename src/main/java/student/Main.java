@@ -3,8 +3,14 @@ package student;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * A program that launches a graphical user interface selected by the user.
+ */
 public class Main {
     private static List<GuiLauncher<?>> launchers = List.of(new MeowGuiLauncher(), new GifGuiLauncher());
+
+    // prevent this class from being instantiated
+    private Main() {}
 
     private static GuiLauncher<?> getUserChoice() {
         Scanner scanner = new Scanner(System.in);
@@ -24,6 +30,11 @@ public class Main {
         }
     }
 
+    /**
+     * Launches the GUI of the user's choice.
+     *
+     * @param args ignored
+     */
     public static void main(String[] args) {
         GuiLauncher<?> launcher = getUserChoice();
         launcher.launchGui();

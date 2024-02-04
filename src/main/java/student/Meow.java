@@ -7,8 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * Represents a Meow in the dataset of cat sounds. Keeps track of the audio file,
- * the cat ID, and the recording session plus vocal counter.
+ * Represents a cat vocalization.
  */
 public class Meow implements Playable {
     private static final NamedComparator<Meow> INCREASING_CAT_ID_COMPARATOR =
@@ -38,7 +37,12 @@ public class Meow implements Playable {
     private final String catID;
     private final int recordingSessionVocalCounter;
 
-    Meow(File file) {
+    /**
+     * Constructs a meow from the specified file
+     *
+     * @param file the file
+     */
+    public Meow(File file) {
         audioFile = file;
         String[] splittedFileName = file.getName().split("_");
         catID = splittedFileName[1];
@@ -61,6 +65,7 @@ public class Meow implements Playable {
 
 
     // TODO: Add toString()
+    @Override
     public String toString() {
         return String.format("Cat %s, Counter %d", catID, recordingSessionVocalCounter);
     }
@@ -69,6 +74,7 @@ public class Meow implements Playable {
      * Plays the audio clip of the cat sound. If the sound cannot be played, it
      * prints a message saying it could not be played.
      */
+    @Override
     public void play() {
         AudioInputStream stream;
         AudioFormat format;
