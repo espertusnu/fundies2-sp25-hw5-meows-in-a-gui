@@ -1,22 +1,21 @@
 package student;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Collections;
 import java.util.List;
 
-public class MeowGUI<T extends Playable> extends JFrame {
-    private SortableList<T> sortableList;
-    private List<T> playableList;
+public class Display<T extends Playable> extends JFrame {
+    private List<T> playables;
+    private List<NamedComparator<T>> comparators;
     private DefaultListModel<Playable> listModel;
     private JList<Playable> jList;
 
-    public MeowGUI(SortableList<T> sortableList) {
-        this.sortableList = sortableList;
-        this.playableList = sortableList.getData();
+    public Display(List<T> playables, List<NamedComparator<T>> comparators) {
+        this.playables = playables;
+        this.comparators = comparators;
         this.listModel = new DefaultListModel<>();
         this.jList = new JList<>(listModel);
 
@@ -30,14 +29,13 @@ public class MeowGUI<T extends Playable> extends JFrame {
 
         updateJList();
         JPanel buttonPanel = new JPanel();
-        List<NamedComparator<T>> comparators = sortableList.getComparators();
 
         for (NamedComparator<T> namedComparator : comparators) {
             JButton button = new JButton(namedComparator.getName());
             button.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Collections.sort(sortableList.getData(), namedComparator.getComparator());
+                    Collections.sort(playables, namedComparator.getComparator());
                     updateJList();
                 }
             });
@@ -48,11 +46,11 @@ public class MeowGUI<T extends Playable> extends JFrame {
         playButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Meow selectedMeow = jList.getSelectedValue();
-                if (selectedMeow != null) {
-                    selectedMeow.play();
+                Playable playable = jList.getSelectedValue();
+                if (playable != null) {
+                    playable.play();
                 } else {
-                    JOptionPane.showMessageDialog(MeowGUI.this, "Please select a Meow to play.");
+                    JOptionPane.showMessageDialog(Display.this, "Please select an item to play.");
                 }
             }
         });
@@ -66,7 +64,7 @@ public class MeowGUI<T extends Playable> extends JFrame {
 
     private void updateJList() {
         listModel.clear();
-        for (Playable playable : playableList) {
+        for (Playable playable : playables) {
             listModel.addElement(playable);
         }
     }
@@ -77,11 +75,11 @@ public class MeowGUI<T extends Playable> extends JFrame {
         File[] files = new File(testFilePath).listFiles();
         dataset.addEachToBack(files);
 
-        MeowGUI meowGUI = new MeowGUI(dataset.data);
+        Display display = new Display(dataset.data);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                meowGUI.setVisible(true);
+                display.setVisible(true);
             }
         });
     }
