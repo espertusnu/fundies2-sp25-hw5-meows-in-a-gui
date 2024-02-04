@@ -1,0 +1,31 @@
+package student;
+
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+    private static List<GuiLauncher<?>> launchers = List.of(new MeowGuiLauncher());
+
+    private static GuiLauncher<?> getUserChoice() {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("Options:");
+            for (int i = 0; i < launchers.size(); i++) {
+                System.out.printf("%d. %s\n", i + 1, launchers.get(i).getName());
+            }
+            System.out.println("Enter your choice: ");
+            // TODO: Add code to catch exceptions thrown by nextInt().
+            int choice = scanner.nextInt();
+            if (choice >= 1 && choice <= launchers.size()) {
+                return launchers.get(choice - 1);
+            } else {
+                System.out.println("Your choice was out of range.");
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        GuiLauncher<?> launcher = getUserChoice();
+        launcher.launchGui();
+    }
+}

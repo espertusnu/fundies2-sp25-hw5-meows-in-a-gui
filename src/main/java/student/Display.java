@@ -70,20 +70,4 @@ public class Display<T extends Playable> extends JFrame {
             listModel.addElement(playable);
         }
     }
-
-    public static void main(String[] args) {
-        Dataset dataset = new ArrayListDataset();
-        String testFilePath = "src/main/resources/test_files";
-        File[] files = new File(testFilePath).listFiles();
-        dataset.addEachToBack(files);
-
-        Display display = new Display(
-                dataset.data, List.of(Meow.INCREASING_CAT_ID_COMPARATOR, Meow.INCREASING_RECORDING_ID_COMPARATOR));
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                display.setVisible(true);
-            }
-        });
-    }
 }
