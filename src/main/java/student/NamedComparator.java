@@ -6,8 +6,9 @@ public class NamedComparator<T> {
     private String name;
     private Comparator<T> comparator;
 
-    public NamedComparator(String name) {
+    public NamedComparator(String name, Comparator<T> comparator) {
         this.name = name;
+        this.comparator = comparator;
     }
 
     public String getName() {

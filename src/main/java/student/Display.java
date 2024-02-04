@@ -1,10 +1,12 @@
 package student;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Display<T extends Playable> extends JFrame {
@@ -22,10 +24,10 @@ public class Display<T extends Playable> extends JFrame {
         initializeGUI();
     }
 
-    private <T extends Playable> void initializeGUI() {
+    private void initializeGUI() {
         setTitle("Homework 5 GUI");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setSize(800, 600);
 
         updateJList();
         JPanel buttonPanel = new JPanel();
@@ -74,8 +76,27 @@ public class Display<T extends Playable> extends JFrame {
         String testFilePath = "src/main/resources/test_files";
         File[] files = new File(testFilePath).listFiles();
         dataset.addEachToBack(files);
+        NamedComparator<Meow> namedComparator1 =
+                new NamedComparator("sort by increasing cat ID",
+                        new Comparator<Meow>() {
+                            @Override
+                            public int compare(Meow o1, Meow o2) {
+                                return o1.catID.compareTo(o2.catID);
+                            }
+                        }
+                );
+        NamedComparator<Meow> namedComparator2 =
+                new NamedComparator("sort by increasing recording ID",
+                        new Comparator<Meow>() {
+                            @Override
+                            public int compare(Meow o1, Meow o2) {
+                                return o1.recordingSessionVocalCounter - o2.recordingSessionVocalCounter;
+                            }
+                        }
+                );
 
-        Display display = new Display(dataset.data);
+        Display display = new Display(
+                dataset.data, List.of(namedComparator1, namedComparator2));
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
