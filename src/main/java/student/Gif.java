@@ -1,13 +1,10 @@
 package student;
 
 import javax.swing.*;
-import java.awt.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.List;
-
-// TODO: Students will have to write this class.
 
 /**
  * An animated gif.
@@ -72,7 +69,7 @@ public class Gif implements Playable {
             frame.setSize(icon.getIconWidth(), icon.getIconHeight());
             frame.setVisible(true);
         } catch (MalformedURLException e) {
-            System.err.println("Unable to display " + name);
+            System.out.printf("Unable to display %s\n", name);
         }
     }
 }
