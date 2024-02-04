@@ -1,9 +1,7 @@
 package student;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.*;
-import javax.sound.sampled.*;
 
 /**
  * Keeps track of a dataset of Meows of audio files. Each audio file is named
@@ -76,66 +74,4 @@ public abstract class Dataset {
     }
 
 
-    /**
-     * Represents a Meow in the dataset of cat sounds. Keeps track of the audio file,
-     * the cat ID, and the recording session plus vocal counter.
-     */
-    public static class Meow implements Comparable<Meow> {
-
-        protected File audioFile;
-        protected String catID;
-        protected int recordingSessionVocalCounter;
-
-        protected Meow(File file) {
-            audioFile = file;
-            String[] splittedFileName = file.getName().split("_");
-            catID = splittedFileName[1];
-            String sessionAsString = splittedFileName[splittedFileName.length - 1].replace(".wav", "");
-            recordingSessionVocalCounter = Integer.parseInt(sessionAsString);
-        }
-
-        @Override
-        public int compareTo(Meow other) {
-            if (catID.equals(other.catID)) {
-                return recordingSessionVocalCounter - other.recordingSessionVocalCounter;
-            } else {
-                return catID.compareTo(other.catID);
-            }
-        }
-
-        @Override
-        public boolean equals(Object other) {
-            if (other instanceof Meow meow) {
-                return audioFile.equals(meow.audioFile);
-            }
-            return false;
-        }
-
-        @Override
-        public int hashCode() {
-            return audioFile.hashCode();
-        }
-
-        /**
-         * Plays the audio clip of the cat sound. If the sound cannot be played, it
-         * prints a message saying it could not be played.
-         */
-        public void play() {
-            AudioInputStream stream;
-            AudioFormat format;
-            DataLine.Info info;
-            Clip clip;
-
-            try {
-                stream = AudioSystem.getAudioInputStream(audioFile);
-                format = stream.getFormat();
-                info = new DataLine.Info(Clip.class, format);
-                clip = (Clip) AudioSystem.getLine(info);
-                clip.open(stream);
-                clip.start();
-            } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-                System.out.printf("Could not play %s\n", audioFile);
-            }
-        }
-    }
 }

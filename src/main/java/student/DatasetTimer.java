@@ -128,7 +128,7 @@ public final class DatasetTimer {
      */
     private void getRandomMeows(int num, Dataset dataset, boolean playThem) {
         for (int i = 0; i < num; i++) {
-            Dataset.Meow meow = dataset.getRandomMeow();
+            Meow meow = dataset.getRandomMeow();
             if (playThem) {
                 meow.play();
             }
