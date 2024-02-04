@@ -33,7 +33,7 @@ public class Meow implements Playable {
     private final String catID;
     private final int recordingSessionVocalCounter;
 
-    protected Meow(File file) {
+    Meow(File file) {
         audioFile = file;
         String[] splittedFileName = file.getName().split("_");
         catID = splittedFileName[1];
