@@ -94,8 +94,6 @@ public class MeowGUI extends JFrame {
     public static void main(String[] args) {
         Dataset dataset = new ArrayListDataset();
         String testFilePath = "src/main/resources/test_files";
-        String filenameOne = "/B_ANI01_MC_FN_SIM01_101.wav";
-        String filenameTwo = "/B_ANI01_MC_FN_SIM01_102.wav";
         File[] files = new File(testFilePath).listFiles();
         dataset.addEachToBack(files);
 
