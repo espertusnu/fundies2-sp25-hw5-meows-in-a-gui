@@ -76,27 +76,9 @@ public class Display<T extends Playable> extends JFrame {
         String testFilePath = "src/main/resources/test_files";
         File[] files = new File(testFilePath).listFiles();
         dataset.addEachToBack(files);
-        NamedComparator<Meow> namedComparator1 =
-                new NamedComparator("sort by increasing cat ID",
-                        new Comparator<Meow>() {
-                            @Override
-                            public int compare(Meow o1, Meow o2) {
-                                return o1.catID.compareTo(o2.catID);
-                            }
-                        }
-                );
-        NamedComparator<Meow> namedComparator2 =
-                new NamedComparator("sort by increasing recording ID",
-                        new Comparator<Meow>() {
-                            @Override
-                            public int compare(Meow o1, Meow o2) {
-                                return o1.recordingSessionVocalCounter - o2.recordingSessionVocalCounter;
-                            }
-                        }
-                );
 
         Display display = new Display(
-                dataset.data, List.of(namedComparator1, namedComparator2));
+                dataset.data, List.of(Meow.INCREASING_CAT_ID_COMPARATOR, Meow.INCREASING_RECORDING_ID_COMPARATOR));
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

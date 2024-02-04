@@ -3,13 +3,31 @@ package student;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Comparator;
 
 /**
  * Represents a Meow in the dataset of cat sounds. Keeps track of the audio file,
  * the cat ID, and the recording session plus vocal counter.
  */
 public class Meow implements Playable {
-
+    public static final NamedComparator<Meow> INCREASING_CAT_ID_COMPARATOR =
+            new NamedComparator("sort by increasing cat ID",
+                    new Comparator<Meow>() {
+                        @Override
+                        public int compare(Meow o1, Meow o2) {
+                            return o1.catID.compareTo(o2.catID);
+                        }
+                    }
+            );
+    public static final NamedComparator<Meow> INCREASING_RECORDING_ID_COMPARATOR =
+            new NamedComparator("sort by increasing recording ID",
+                    new Comparator<Meow>() {
+                        @Override
+                        public int compare(Meow o1, Meow o2) {
+                            return o1.recordingSessionVocalCounter - o2.recordingSessionVocalCounter;
+                        }
+                    }
+            );
     protected File audioFile;
     public String catID;
     public int recordingSessionVocalCounter;
