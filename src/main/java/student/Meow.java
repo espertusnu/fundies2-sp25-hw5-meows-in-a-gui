@@ -11,7 +11,7 @@ import java.util.Comparator;
  */
 public class Meow implements Playable {
     public static final NamedComparator<Meow> INCREASING_CAT_ID_COMPARATOR =
-            new NamedComparator("sort by increasing cat ID",
+            new NamedComparator<Meow>("sort by increasing cat ID",
                     new Comparator<Meow>() {
                         @Override
                         public int compare(Meow o1, Meow o2) {
@@ -20,7 +20,7 @@ public class Meow implements Playable {
                     }
             );
     public static final NamedComparator<Meow> INCREASING_RECORDING_ID_COMPARATOR =
-            new NamedComparator("sort by increasing recording ID",
+            new NamedComparator<Meow>("sort by increasing recording ID",
                     new Comparator<Meow>() {
                         @Override
                         public int compare(Meow o1, Meow o2) {
@@ -29,9 +29,9 @@ public class Meow implements Playable {
                     }
             );
 
-    private File audioFile;
-    private String catID;
-    private int recordingSessionVocalCounter;
+    private final File audioFile;
+    private final String catID;
+    private final int recordingSessionVocalCounter;
 
     protected Meow(File file) {
         audioFile = file;
