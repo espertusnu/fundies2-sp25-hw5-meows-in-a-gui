@@ -47,21 +47,4 @@ public abstract class Dataset {
     public void addEachToBack(File[] files) {
         addEach(files, true);
     }
-
-    /**
-     * Gets a random Meow from the data set.
-     *
-     * @return a randomly selected Meow from the dataset
-     * @throws IllegalStateException if the dataset is empty
-     */
-    public Meow getRandomMeow() throws IllegalStateException {
-        if (data.isEmpty()) {
-            throw new IllegalStateException("The dataset must not be empty.");
-        }
-        if (rand == null) {
-            rand = new Random();
-        }
-        int index = rand.nextInt(data.size());
-        return data.get(index);
-    }
 }
