@@ -44,6 +44,12 @@ public class Meow implements Comparable<Meow> {
         return audioFile.hashCode();
     }
 
+
+    // TODO: Add toString()
+    public String toString() {
+        return String.format("Cat %s, Counter %d", catID, recordingSessionVocalCounter);
+    }
+
     /**
      * Plays the audio clip of the cat sound. If the sound cannot be played, it
      * prints a message saying it could not be played.
