@@ -1,5 +1,6 @@
 package student;
 
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -21,11 +22,16 @@ public class Main {
             }
             System.out.println("Enter your choice: ");
             // TODO: Add code to catch exceptions thrown by nextInt().
-            int choice = scanner.nextInt();
-            if (choice >= 1 && choice <= launchers.size()) {
-                return launchers.get(choice - 1);
-            } else {
-                System.out.println("Your choice was out of range.");
+            try {
+                int choice = scanner.nextInt();
+                if (choice >= 1 && choice <= launchers.size()) {
+                    return launchers.get(choice - 1);
+                } else {
+                    System.out.println("Your choice was out of range.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("You may only enter a number.");
+                scanner.next();
             }
         }
     }
