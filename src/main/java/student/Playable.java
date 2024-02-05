@@ -6,7 +6,7 @@ package student;
  */
 public interface Playable {
     /**
-     * Play or otherwise active this instance.
+     * Play or otherwise activate this instance.
      */
-    public void play();
+     void play();
 }
