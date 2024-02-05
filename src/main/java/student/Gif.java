@@ -3,7 +3,6 @@ package student;
 import javax.swing.*;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -11,29 +10,12 @@ import java.util.List;
  */
 public class Gif implements Playable {
     private static final NamedComparator<Gif> INCREASING_NAME_COMPARATOR = new NamedComparator<Gif>(
-            "sort alphabetically",
-            new Comparator<Gif>() {
-                @Override
-                public int compare(Gif gif1, Gif gif2) {
-                    return gif1.name.compareTo(gif2.name);
-                }
-            });
+            "sort alphabetically", null);
     private static final NamedComparator<Gif> DECREASING_NAME_COMPARATOR = new NamedComparator<Gif>(
-            "sort reverse alphabetically",
-            new Comparator<Gif>() {
-                @Override
-                public int compare(Gif gif1, Gif gif2) {
-                    return gif2.name.compareTo(gif1.name);
-                }
-            });
+            "sort reverse alphabetically", null);
+
     private static final NamedComparator<Gif> INCREASING_NAME_LENGTH_COMPARATOR = new NamedComparator<Gif>(
-            "sort by length",
-            new Comparator<Gif>() {
-                @Override
-                public int compare(Gif gif1, Gif gif2) {
-                    return gif1.name.length() - gif2.name.length();
-                }
-            });
+            "sort by length", null);
 
     static final List<NamedComparator<Gif>> COMPARATORS = List.of(
             INCREASING_NAME_COMPARATOR,

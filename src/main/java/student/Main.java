@@ -8,7 +8,7 @@ import java.util.Scanner;
  * A program that launches a graphical user interface selected by the user.
  */
 public class Main {
-    private static List<GuiLauncher<?>> launchers = List.of(new MeowGuiLauncher(), new GifGuiLauncher());
+    private static final List<GuiLauncher<?>> launchers = List.of(new MeowGuiLauncher());
 
     // prevent this class from being instantiated
     private Main() {}
