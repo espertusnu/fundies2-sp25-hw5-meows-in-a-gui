@@ -11,7 +11,8 @@ public class Main {
     private static final List<GuiLauncher<?>> launchers = List.of(new MeowGuiLauncher());
 
     // prevent this class from being instantiated
-    private Main() {}
+    private Main() {
+    }
 
     private static GuiLauncher<?> getUserChoice() {
         Scanner scanner = new Scanner(System.in);
@@ -22,16 +23,11 @@ public class Main {
             }
             System.out.println("Enter your choice: ");
             // TODO: Add code to catch exceptions thrown by nextInt().
-            try {
-                int choice = scanner.nextInt();
-                if (choice >= 1 && choice <= launchers.size()) {
-                    return launchers.get(choice - 1);
-                } else {
-                    System.out.println("Your choice was out of range.");
-                }
-            } catch (InputMismatchException e) {
-                System.out.println("You may only enter a number.");
-                scanner.next();
+            int choice = scanner.nextInt();
+            if (choice >= 1 && choice <= launchers.size()) {
+                return launchers.get(choice - 1);
+            } else {
+                System.out.println("Your choice was out of range.");
             }
         }
     }
