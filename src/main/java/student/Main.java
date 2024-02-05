@@ -1,14 +1,13 @@
 package student;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 /**
  * A program that launches a graphical user interface selected by the user.
  */
-public class Main {
-    private static final List<GuiLauncher<?>> launchers = List.of(new MeowGuiLauncher());
+public final class Main {
+    private static final List<GuiLauncher<?>> LAUNCHERS = List.of(new MeowGuiLauncher());
 
     // prevent this class from being instantiated
     private Main() {
@@ -18,14 +17,14 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("Options:");
-            for (int i = 0; i < launchers.size(); i++) {
-                System.out.printf("%d. %s\n", i + 1, launchers.get(i).getName());
+            for (int i = 0; i < LAUNCHERS.size(); i++) {
+                System.out.printf("%d. %s\n", i + 1, LAUNCHERS.get(i).getName());
             }
             System.out.println("Enter your choice: ");
             // TODO: Add code to catch exceptions thrown by nextInt().
             int choice = scanner.nextInt();
-            if (choice >= 1 && choice <= launchers.size()) {
-                return launchers.get(choice - 1);
+            if (choice >= 1 && choice <= LAUNCHERS.size()) {
+                return LAUNCHERS.get(choice - 1);
             } else {
                 System.out.println("Your choice was out of range.");
             }
