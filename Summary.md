@@ -1,24 +1,10 @@
 # SUMMARY
 
-## List timing questions
-
-### Which type of list is faster for adding to the front? Why?
-
-_Please explain in a sentence or two._ [2 points]
-
-### Which type of list is faster for accessing a random element? Why?
-
-_Please explain in a sentence or two._ [2 points]
-
-### Why is Dataset an abstract class?
-
-_Please explain in a sentence or two._ [2 points]
-
-## Reflection questions
+## Basic Questions
 
 ### Where can we find your work on Github?
 
-_Give the usernames of all teammates and the URL of the repository._ [1 point]
+_Give the usernames of all teammates and the URL of the repository._ [2 points]
 
 ### Did you successfully implement everything that was requested?
 
@@ -45,17 +31,19 @@ don't share code._ [1 point]
 _Please give specific URLs and state which ones were particularly helpful.
 You do not need to cite course materials._ [1 point]
 
-### Test coverage
+## What addition did you make? 
 
-_Did your tests cover every line of the `addToFront()`s, `getRandomRow()`,
-`sortDataset()`, and `Row`'s `compareTo()` (and any helper methods you
-created for them)? Did you submit a screenshot?
-If not, please explain._ [1 point]
+_Please describe the behavior and data set._ [2 points]
 
-### Reflections
 
-_Give a few sentences reflecting on your experience with the assignment,
-including what you learned and how TDD affects your development experience,
-if at all. Suggestions for improving assignments, office hours, and lecture are
-always welcome._
-[3 points]
+## Reflections
+
+_Give **one or more paragraphs** reflecting on your experience with the
+assignment, including answers to **all** of these questions:_
+
+* _What was the most difficult part of the assignment?_
+* _What was the most rewarding part of the assignment?_
+* _What did you learn doing the assignment?_
+
+_Constructive and actionable suggestions for improving assignments, office hours, and lecture are always welcome._
+_If there was a TA or classmate who was especially helpful, say so._ [6 points]

@@ -70,10 +70,6 @@ public class Meow implements Playable {
 
 
     // TODO: Add toString()
-    @Override
-    public String toString() {
-        return String.format("Cat %s, Counter %d", catID, recordingSessionVocalCounter);
-    }
 
     /**
      * Plays the audio clip of the cat sound. If the sound cannot be played, it
