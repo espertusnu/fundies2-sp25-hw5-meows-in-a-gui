@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class Meow implements Playable {
     @VisibleForTesting
-    static final NamedComparator<Meow> INCREASING_CAT_ID_NCOMPARATOR =
+    public static final NamedComparator<Meow> INCREASING_CAT_ID_NCOMPARATOR =
             new NamedComparator<Meow>("sort by increasing cat ID",
                     new Comparator<Meow>() {
                         @Override
@@ -23,7 +23,7 @@ public class Meow implements Playable {
                     }
             );
     @VisibleForTesting
-    static final NamedComparator<Meow> INCREASING_RECORDING_ID_NCOMPARATOR =
+    public static final NamedComparator<Meow> INCREASING_RECORDING_ID_NCOMPARATOR =
             new NamedComparator<Meow>("sort by increasing recording ID",
                     new Comparator<Meow>() {
                         @Override
@@ -32,6 +32,7 @@ public class Meow implements Playable {
                         }
                     }
             );
+
     @VisibleForTesting
     static final List<NamedComparator<Meow>> COMPARATORS = List.of(
             INCREASING_CAT_ID_NCOMPARATOR,
