@@ -16,8 +16,7 @@ class MeowTest {
         // TODO: Initialize meows with 4 different instances.
         // To do this, you will need to create a new Meow constructor
         // that takes a cat ID and recording session vocalization counter
-        // and is visible for testing. Make sure that the concrete type
-        // of meows supports all optional operations.
+        // and is visible for testing.
     }
 
     @Test
