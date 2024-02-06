@@ -1,5 +1,7 @@
 package student;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import javax.swing.*;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -9,12 +11,15 @@ import java.util.List;
  * An animated gif.
  */
 public class Gif implements Playable {
-    private static final NamedComparator<Gif> INCREASING_NAME_NCOMPARATOR = new NamedComparator<Gif>(
+    @VisibleForTesting
+    public static final NamedComparator<Gif> INCREASING_NAME_NCOMPARATOR = new NamedComparator<Gif>(
             "sort alphabetically", null);
-    private static final NamedComparator<Gif> DECREASING_NAME_NCOMPARATOR = new NamedComparator<Gif>(
+    @VisibleForTesting
+    public static final NamedComparator<Gif> DECREASING_NAME_NCOMPARATOR = new NamedComparator<Gif>(
             "sort reverse alphabetically", null);
 
-    private static final NamedComparator<Gif> INCREASING_NAME_LENGTH_NCOMPARATOR = new NamedComparator<Gif>(
+    @VisibleForTesting
+    public static final NamedComparator<Gif> INCREASING_NAME_LENGTH_NCOMPARATOR = new NamedComparator<Gif>(
             "sort by length", null);
 
     static final List<NamedComparator<Gif>> COMPARATORS = List.of(
