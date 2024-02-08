@@ -15,23 +15,12 @@ public class Meow implements Playable {
     @VisibleForTesting
     public static final NamedComparator<Meow> INCREASING_CAT_ID_NCOMPARATOR =
             new NamedComparator<Meow>("sort by increasing cat ID",
-                    new Comparator<Meow>() {
-                        @Override
-                        public int compare(Meow o1, Meow o2) {
-                            return o1.catID.compareTo(o2.catID);
-                        }
-                    }
-            );
+                    (meow1, meow2) -> meow1.catID.compareTo(meow2.catID));
+    
     @VisibleForTesting
     public static final NamedComparator<Meow> INCREASING_RECORDING_ID_NCOMPARATOR =
             new NamedComparator<Meow>("sort by increasing recording ID",
-                    new Comparator<Meow>() {
-                        @Override
-                        public int compare(Meow o1, Meow o2) {
-                            return o1.recordingSessionVocalCounter - o2.recordingSessionVocalCounter;
-                        }
-                    }
-            );
+                    (meow1, meow2) -> meow1.recordingSessionVocalCounter - meow2.recordingSessionVocalCounter);
 
     @VisibleForTesting
     static final List<NamedComparator<Meow>> COMPARATORS = List.of(
