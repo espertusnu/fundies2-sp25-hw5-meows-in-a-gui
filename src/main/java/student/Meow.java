@@ -12,12 +12,12 @@ import java.util.List;
  */
 public class Meow implements Playable {
     @VisibleForTesting
-    public static final NamedComparator<Meow> INCREASING_CAT_ID_NCOMPARATOR =
+    static final NamedComparator<Meow> INCREASING_CAT_ID_NCOMPARATOR =
             new NamedComparator<>("sort by increasing cat ID",
                     (meow1, meow2) -> meow1.catID.compareTo(meow2.catID));
 
     @VisibleForTesting
-    public static final NamedComparator<Meow> INCREASING_RECORDING_ID_NCOMPARATOR =
+    static final NamedComparator<Meow> INCREASING_RECORDING_ID_NCOMPARATOR =
             new NamedComparator<>("sort by increasing recording ID",
                     (meow1, meow2) -> meow1.recordingSessionVocalCounter - meow2.recordingSessionVocalCounter);
 
