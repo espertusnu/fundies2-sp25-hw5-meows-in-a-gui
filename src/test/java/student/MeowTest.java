@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Comparator;
 
 class MeowTest {
-    // TODO: Create an instance variable meows with 4 different instances.
+    // TODO: Create at least 4 instances of Meow for testing.
+    //
     // To do this, you will need to create a new Meow constructor
     // that takes a cat ID and recording session vocalization counter
     // and is visible for testing.
