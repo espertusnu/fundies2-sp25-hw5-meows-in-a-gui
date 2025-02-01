@@ -25,12 +25,12 @@ public class Display<T extends Playable> extends JFrame {
      * Constructs and launches a GUI that allows the provided data to be
      * reordered and played.
      *
-     * @param playables the data items
+     * @param playables   the data items
      * @param comparators the comparators used to sort them
      */
     public Display(List<T> playables, List<NamedComparator<T>> comparators) {
         this.playables = new ArrayList<>(playables); // ensure mutability
-        this.comparators = comparators;
+        this.comparators = new ArrayList<>(comparators);
         this.listModel = new DefaultListModel<>();
         this.jList = new JList<>(listModel);
 

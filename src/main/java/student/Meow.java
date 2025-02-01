@@ -5,7 +5,6 @@ import com.google.common.annotations.VisibleForTesting;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -14,12 +13,12 @@ import java.util.List;
 public class Meow implements Playable {
     @VisibleForTesting
     public static final NamedComparator<Meow> INCREASING_CAT_ID_NCOMPARATOR =
-            new NamedComparator<Meow>("sort by increasing cat ID",
+            new NamedComparator<>("sort by increasing cat ID",
                     (meow1, meow2) -> meow1.catID.compareTo(meow2.catID));
-    
+
     @VisibleForTesting
     public static final NamedComparator<Meow> INCREASING_RECORDING_ID_NCOMPARATOR =
-            new NamedComparator<Meow>("sort by increasing recording ID",
+            new NamedComparator<>("sort by increasing recording ID",
                     (meow1, meow2) -> meow1.recordingSessionVocalCounter - meow2.recordingSessionVocalCounter);
 
     @VisibleForTesting
@@ -39,9 +38,9 @@ public class Meow implements Playable {
      */
     public Meow(File file) {
         audioFile = file;
-        String[] splittedFileName = file.getName().split("_");
-        catID = splittedFileName[1];
-        String sessionAsString = splittedFileName[splittedFileName.length - 1].replace(".wav", "");
+        String[] splitFilename = file.getName().split("_");
+        catID = splitFilename[1];
+        String sessionAsString = splitFilename[splitFilename.length - 1].replace(".wav", "");
         recordingSessionVocalCounter = Integer.parseInt(sessionAsString);
     }
 
@@ -57,7 +56,6 @@ public class Meow implements Playable {
     public int hashCode() {
         return audioFile.hashCode();
     }
-
 
     // TODO: Add toString()
 
@@ -80,7 +78,7 @@ public class Meow implements Playable {
             clip.open(stream);
             clip.start();
         } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-            System.out.printf("Could not play %s\n", audioFile);
+            System.out.printf("Could not play %s%n", audioFile);
         }
     }
 }

@@ -56,7 +56,7 @@ public class Gif implements Playable {
             frame.setSize(icon.getIconWidth(), icon.getIconHeight());
             frame.setVisible(true);
         } catch (MalformedURLException e) {
-            System.out.printf("Unable to display %s\n", name);
+            System.out.printf("Unable to display %s%n", name);
         }
     }
 }
