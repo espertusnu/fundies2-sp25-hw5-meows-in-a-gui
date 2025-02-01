@@ -1,3 +1,4 @@
+// Students should not modify this file.
 package student;
 
 /**
@@ -8,5 +9,5 @@ public interface Playable {
     /**
      * Play or otherwise activate this instance.
      */
-     void play();
+    void play();
 }
