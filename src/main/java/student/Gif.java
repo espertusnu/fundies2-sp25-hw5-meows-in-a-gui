@@ -11,18 +11,16 @@ import java.util.List;
  * An animated gif.
  */
 public class Gif implements Playable {
-    @VisibleForTesting
-    public static final NamedComparator<Gif> INCREASING_NAME_NCOMPARATOR = new NamedComparator<Gif>(
+    private static final NamedComparator<Gif> INCREASING_NAME_NCOMPARATOR = new NamedComparator<>(
             "sort alphabetically", null);
-    @VisibleForTesting
-    public static final NamedComparator<Gif> DECREASING_NAME_NCOMPARATOR = new NamedComparator<Gif>(
+
+    private static final NamedComparator<Gif> DECREASING_NAME_NCOMPARATOR = new NamedComparator<>(
             "sort reverse alphabetically", null);
 
-    @VisibleForTesting
-    public static final NamedComparator<Gif> INCREASING_NAME_LENGTH_NCOMPARATOR = new NamedComparator<Gif>(
+    private static final NamedComparator<Gif> INCREASING_NAME_LENGTH_NCOMPARATOR = new NamedComparator<>(
             "sort by length", null);
 
-    static final List<NamedComparator<Gif>> COMPARATORS = List.of(
+    private static final List<NamedComparator<Gif>> COMPARATORS = List.of(
             INCREASING_NAME_NCOMPARATOR,
             DECREASING_NAME_NCOMPARATOR,
             INCREASING_NAME_LENGTH_NCOMPARATOR
