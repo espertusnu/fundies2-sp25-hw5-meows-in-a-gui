@@ -24,7 +24,7 @@ public class MeowGuiLauncher implements GuiLauncher<Meow> {
 
     private List<Meow> loadData(String path) {
         File[] files = new File(path).listFiles();
-        List<Meow> meows = new ArrayList<>(); // TODO: Add capacity argument
+        List<Meow> meows = new ArrayList<>();
         if (files != null) {
             for (File file : files) {
                 meows.add(new Meow(file));
