@@ -14,7 +14,8 @@ public class MeowGuiLauncher implements GuiLauncher<Meow> {
     /**
      * Constructs the launcher.
      */
-    public MeowGuiLauncher() {}
+    public MeowGuiLauncher() {
+    }
 
     @Override
     public String getName() {
@@ -35,7 +36,6 @@ public class MeowGuiLauncher implements GuiLauncher<Meow> {
     @Override
     public void launchGui() {
         Display<Meow> display = new Display<>(loadData(TEST_FILES_PATH), Meow.COMPARATORS);
-        // TODO: Move this code into GuiLauncher, which should be made into an abstract class.
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
